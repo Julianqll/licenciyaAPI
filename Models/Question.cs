@@ -8,6 +8,6 @@ public class Question
     [Required]
     public required string Title { get; set; }
 
-    public List<Answer>? AnswerList { get; set; }
+    public string? Image { get; set; }
 
 }
