@@ -14,7 +14,4 @@ public class Answer
 
     [Required]
     public int QuestionId { get; set; }
-    
-    [ForeignKey("QuestionId")]
-    public Question? RelatedQuestion { get; set; }
 }

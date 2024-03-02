@@ -10,4 +10,6 @@ public class Question
 
     public string? Image { get; set; }
 
+    public List<Answer>? AnswerList { get; set; }
+
 }
