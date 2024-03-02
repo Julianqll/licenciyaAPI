@@ -21,7 +21,11 @@ public class QuestionsController : ControllerBase
     [HttpGet]
     public ActionResult<IEnumerable<Question>> GetQuestions()
     {
-        return _dbContext.Questions.ToList();
+        var questionsWithAnswers = _dbContext.Questions
+            .Include(q => q.AnswerList)
+            .ToList();
+
+        return questionsWithAnswers;
     }
 
     [HttpGet("{id}")]
