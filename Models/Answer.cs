@@ -16,5 +16,5 @@ public class Answer
     public int QuestionId { get; set; }
     
     [ForeignKey("QuestionId")]
-    public Question RelatedQuestion { get; set; }
+    public Question? RelatedQuestion { get; set; }
 }
