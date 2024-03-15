@@ -30,7 +30,7 @@ jobs:
 
     - name: Test deployed application
       run: |
-        response_code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:80/api/Questions)
+        response_code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/api/Questions)
         if [ $response_code -eq 200 ]; then
           echo "Test successful"
         else
