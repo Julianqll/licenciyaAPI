@@ -1,0 +1,39 @@
+name: Deploy and Test Docker Image
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Build Docker image
+      run: docker build --file Dockerfile --tag licenciyaapi .
+
+    - name: Test Docker image
+      run: docker run --rm licenciyaapi echo "Docker image test successful"
+
+    - name: Deploy Docker image
+      run: docker run --detach --publish 80:80 -e DATABASE_CONNECTION_STRING=${{ secrets.DATABASE_CONNECTION_STRING }} licenciyaapi
+
+    - name: Wait for deployment
+      run: sleep 100
+
+    - name: Test deployed application
+      run: |
+        response_code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:80/api/Questions)
+        if [ $response_code -eq 200 ]; then
+          echo "Test successful"
+        else
+          echo "Test failed with HTTP status code $response_code"
+          exit 1
+        fi
