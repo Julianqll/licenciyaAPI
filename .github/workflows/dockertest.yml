@@ -19,14 +19,11 @@ jobs:
     - name: Build Docker image
       run: docker build --file Dockerfile --tag licenciyaapi .
 
-    - name: Test Docker image
-      run: docker run --rm licenciyaapi echo "Docker image test successful"
-
     - name: Deploy Docker image
       run: docker run --detach --publish 80:80 -e DATABASE_CONNECTION_STRING=${{ secrets.DATABASE_CONNECTION_STRING }} licenciyaapi
 
     - name: Wait for deployment
-      run: sleep 100
+      run: sleep 30
 
     - name: Test deployed application
       run: |
