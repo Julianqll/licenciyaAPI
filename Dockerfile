@@ -17,8 +17,9 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 COPY --from=build /app/out ./
 
-# Expose the port your application will run on
-EXPOSE 80
+EXPOSE 8080/tcp
+
+ENV ASPNETCORE_URLS http://*:8080
 
 # Start the application
-ENTRYPOINT ["dotnet", "NET-Core-Web-API-Docker-Demo.dll"]
+ENTRYPOINT ["dotnet", "licenciyaAPI.dll"]
