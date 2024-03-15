@@ -30,10 +30,12 @@ jobs:
 
     - name: Test deployed application
       run: |
-        response_code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/api/Questions)
+        response_code=$(curl -s -o /dev/null -w "%{http_code}" $ACTION_ROUTE_TEST)
         if [ $response_code -eq 200 ]; then
           echo "Test successful"
         else
           echo "Test failed with HTTP status code $response_code"
           exit 1
         fi
+      env:
+        ACTION_ROUTE_TEST: ${{ secrets.ACTION_ROUTE_TEST }}
